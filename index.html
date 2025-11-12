@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SakhaLatin — Кириллица → Латиница</title>
+    <title>Yakut (Sakha) Transliterator - Кириллица → Латиница</title>
     <link rel="icon" type="image/png" href="haryskhal.png">
     <style>
         :root {
+            /* Dark theme (default) */
             --bg-container: rgba(20, 20, 20, 0.95);
             --bg-textarea: rgba(10, 10, 10, 0.8);
             --bg-output: rgba(15, 15, 15, 0.9);
@@ -27,6 +28,7 @@
         }
 
         [data-theme="light"] {
+            /* Light theme */
             --bg-container: rgba(255, 255, 255, 0.95);
             --bg-textarea: rgba(250, 250, 250, 0.9);
             --bg-output: rgba(245, 255, 245, 0.9);
@@ -373,6 +375,7 @@
             font-size: 8px;
         }
 
+        /* New styles for the dropdown */
         .alphabet-select-section {
             margin-bottom: 25px;
             text-align: center;
@@ -430,6 +433,8 @@
             opacity: 1;
             transform: translateY(0);
         }
+
+        /* --- NEW FOOTER STYLES --- */
         .footer-links {
             text-align: center;
             margin-top: 30px;
@@ -457,11 +462,13 @@
             transition: filter 0.3s ease, opacity 0.3s ease;
         }
 
+        /* Dark theme: invert black icon to white */
         html[data-theme="dark"] .footer-links img {
             filter: invert(1) brightness(1.2);
             opacity: 0.7;
         }
 
+        /* Light theme: keep icon dark */
         html[data-theme="light"] .footer-links img {
             filter: brightness(0.6);
             opacity: 0.6;
@@ -478,6 +485,8 @@
         html[data-theme="light"] .footer-links a:hover img {
             filter: brightness(0.4);
         }
+        /* --- END OF NEW STYLES --- */
+
 
         @media (max-width: 768px) {
             .container {
@@ -536,33 +545,6 @@
                 width: 16px;
                 height: 16px;
             }
-
-        .footer-links {
-            text-align: center;
-            margin-top: 30px;
-            padding-top: 20px;
-            border-top: 1px solid var(--border-color);
-        }
-
-        .footer-links a {
-            display: inline-block;
-            width: 32px;
-            height: 32px;
-            margin: 0 10px;
-            transition: opacity 0.3s ease, transform 0.3s ease;
-        }
-
-        .footer-links a:hover {
-            opacity: 1;
-            transform: scale(1.1);
-        }
-
-        .footer-links img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            transition: filter 0.3s ease, opacity 0.3s ease;
-        }
         }
     </style>
 </head>
@@ -580,12 +562,12 @@
             </div>
             <div class="logo-text">Latin</div>
         </div>
-        <p class="subtitle">Кириллица → Латиница</p>
+        <p class="subtitle">Кириллица → Латын алпаабыта</p>
 
         <div class="input-section">
             <label for="input-text">Введите текст на якутском (кириллица):</label>
             <div class="textarea-wrapper">
-                <textarea id="input-text" placeholder="Например: Киэн тутун, эн саха буоларгынан!"></textarea>
+                <textarea id="input-text" placeholder="Например: Киэн туттун, эн саха буоларгынан!"></textarea>
                 <button class="clear-btn" id="clear-btn" aria-label="Clear input" title="Clear">×</button>
             </div>
         </div>
@@ -595,13 +577,6 @@
             <div class="special-chars-grid" id="special-chars-grid">
                 </div>
         </div>
-        <div class="footer-links">
-            <a href="https://www.instagram.com/sakhalatin" target="_blank" rel="noopener noreferrer" title="Contact me on Instagram">
-                <img src="instagram.png" alt="Instagram" />
-            </a>
-        </div>
-        </div>
-    <div class="toast" id="toast"></div>
 
         <div class="alphabet-select-section">
             <label for="alphabet-select" style="margin-bottom: 12px; font-weight: 500;">Выберите стандарт транслитерации:</label>
@@ -617,7 +592,7 @@
         </div>
 
         <div class="output-section">
-            <label for="output-text">Результат:</label>
+            <label for="output-text">Результат (латиница):</label>
             <div class="textarea-wrapper">
                 <textarea id="output-text" class="output-textarea" readonly placeholder="Результат появится здесь..."></textarea>
                 <button class="copy-btn" id="copy-btn" aria-label="Copy output" title="Copy">
@@ -625,15 +600,22 @@
                 </button>
             </div>
         </div>
-    </div>
+
+        <div class="footer-links">
+            <a href="https://www.instagram.com/sakhalatin" target="_blank" rel="noopener noreferrer" title="Contact me on Instagram">
+                <img src="instagram.png" alt="Instagram" />
+            </a>
+        </div>
+        </div>
 
     <div class="toast" id="toast"></div>
 
     <script>
+        // --- MASTER ALPHABET SYSTEMS ---
 
         const alphabetSystems = {
             'novgorodov': {
-                applyLongVowels: true,
+                applyLongVowels: true, // Special rule for this system
                 map: {
                     'А': 'a', 'а': 'a',
                     'Б': 'b', 'б': 'b',
@@ -774,14 +756,14 @@
                 combinations: [
                     { cyrillic: 'Дь', latin: 'Џ' },
                     { cyrillic: 'дь', latin: 'џ' },
-                    { cyrillic: 'Ль', latin: 'L' }, 
-                    { cyrillic: 'ль', latin: 'l' }, 
+                    { cyrillic: 'Ль', latin: 'L' }, // Per list
+                    { cyrillic: 'ль', latin: 'l' }, // Per list
                     { cyrillic: 'Нь', latin: "Н’" },
                     { cyrillic: 'нь', latin: "н'" },
                 ]
             },
             'khitrov': {
-                applyLongVowels: false,
+                applyLongVVowels: false,
                 map: {
                     'А': 'А', 'а': 'а',
                     'Б': 'Б', 'б': 'б',
@@ -793,7 +775,7 @@
                     'Ё': '—', 'ё': '—',
                     'Ж': '—', 'ж': '—',
                     'З': '—', 'з': '—',
-                    'И': 'И', 'и': 'и', 
+                    'И': 'И', 'и': 'и', // Simplified from 'и / і'
                     'Й': 'Й', 'й': 'й',
                     'Ҋ': '—', 'ҋ': '—',
                     'К': 'К', 'к': 'к',
@@ -828,8 +810,8 @@
                     { cyrillic: 'дь', latin: 'ԫ' },
                     { cyrillic: 'Нь', latin: 'Нь' },
                     { cyrillic: 'нь', latin: 'нь' },
-                    { cyrillic: 'Ль', latin: '—' },
-                    { cyrillic: 'ль', latin: '—' },
+                    { cyrillic: 'Ль', latin: '—' }, // Per list
+                    { cyrillic: 'ль', latin: '—' }, // Per list
                 ]
             }
         };
@@ -840,9 +822,9 @@
             'uu': 'u:',
             'ɯɯ': 'ɯ:',
             'ɔɔ': 'ɔ:',
-            'ee': 'e:',
+            'ee': 'e:', 
             'yy': 'y:',
-            'ꭢꭢ': 'ꭢ:'
+            'œœ': 'œ:'
         };
 
         function transliterate(text, systemKey) {
@@ -949,6 +931,7 @@
             });
             initTheme();
 
+            // --- Toast ---
             function showToast(message) {
                 toast.textContent = message;
                 toast.classList.add('show');
@@ -957,6 +940,7 @@
                 }, 2000);
             }
 
+            // --- Buttons ---
             clearBtn.addEventListener('click', function() {
                 inputTextarea.value = '';
                 outputTextarea.value = '';
@@ -978,6 +962,7 @@
                 }
             });
 
+            // --- Special Chars ---
             specialCharacters.forEach(char => {
                 const button = document.createElement('button');
                 button.className = 'char-btn';
@@ -1008,15 +993,6 @@
                 }
             });
         });
-    </script>
-    
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-G4NEH7TP8F"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-    
-      gtag('config', 'G-G4NEH7TP8F');
     </script>
 </body>
 </html>
