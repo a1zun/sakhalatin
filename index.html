@@ -488,6 +488,33 @@
                 width: 16px;
                 height: 16px;
             }
+
+        .footer-links {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .footer-links a {
+            display: inline-block;
+            width: 32px;
+            height: 32px;
+            margin: 0 10px;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            opacity: 1;
+            transform: scale(1.1);
+        }
+
+        .footer-links img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            transition: filter 0.3s ease, opacity 0.3s ease;
+        }
         }
     </style>
 </head>
@@ -520,6 +547,13 @@
             <div class="special-chars-grid" id="special-chars-grid">
                 </div>
         </div>
+        <div class="footer-links">
+            <a href="https://www.instagram.com/sakhalatin" target="_blank" rel="noopener noreferrer" title="Contact me on Instagram">
+                <img src="instagram.png" alt="Instagram" />
+            </a>
+        </div>
+        </div>
+    <div class="toast" id="toast"></div>
 
         <div class="alphabet-select-section">
             <label for="alphabet-select" style="margin-bottom: 12px; font-weight: 500;">Выберите стандарт транслитерации:</label>
@@ -927,6 +961,7 @@
             });
         });
     </script>
+    
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-G4NEH7TP8F"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
