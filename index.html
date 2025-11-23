@@ -223,7 +223,7 @@
             color: var(--text-label);
             font-size: 0.95em;
             font-weight: 500;
-            transition: color 0.3s ease;
+            transition: color 0.3s ease
         }
 
         textarea {
@@ -248,13 +248,12 @@
 
         .clear-btn, .copy-btn {
             position: absolute;
-            top: 10%;
-            transform: translateY(-50%);
+            top: 15px;
             right: 5px;
             background: transparent;
             border: none;
             cursor: pointer;
-            font-size: 20px;
+            font-size: 25px;
             color: var(--text-secondary);
             padding: 5px;
             border-radius: 50%;
@@ -265,13 +264,14 @@
             justify-content: center;
             transition: all 0.3s ease;
             opacity: 0.6;
+            transform: none;
         }
 
         .clear-btn:hover, .copy-btn:hover {
             opacity: 1;
             background: var(--bg-char-btn);
             color: var(--text-primary);
-            transform: translateY(-50%) scale(1.1);
+            transform: scale(1.1);
         }
 
         .copy-btn img {
@@ -464,6 +464,129 @@
             transform: translateY(0);
         }
 
+        .faq-section {
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .faq-title {
+            font-size: 1.5em;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 20px;
+            text-align: center;
+            transition: color 0.3s ease;
+        }
+
+        .faq-item {
+            margin-bottom: 15px;
+            background: var(--bg-textarea);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .faq-item:hover {
+            border-color: rgba(100, 150, 255, 0.3);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .faq-item.active {
+            border-color: rgba(100, 150, 255, 0.5);
+        }
+
+        .faq-question {
+            font-size: 1.1em;
+            font-weight: 600;
+            color: var(--text-primary);
+            padding: 15px 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: color 0.3s ease, background 0.3s ease;
+            user-select: none;
+        }
+
+        .faq-question:hover {
+            background: var(--bg-char-btn);
+        }
+
+        .faq-question-icon {
+            font-size: 1.2em;
+            transition: transform 0.3s ease;
+            color: var(--text-secondary);
+            flex-shrink: 0;
+            margin-left: 15px;
+        }
+
+        .faq-item.active .faq-question-icon {
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            font-size: 0.95em;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            padding: 0 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease, color 0.3s ease;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 1000px;
+            padding: 0 20px 15px 20px;
+        }
+
+        .faq-answer a {
+            color: #4a90e2;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .faq-answer a:hover {
+            color: #5aa0f2;
+            text-decoration: underline;
+        }
+
+        .faq-sources {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .faq-sources-title {
+            font-size: 1em;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 10px;
+            transition: color 0.3s ease;
+        }
+
+        .faq-sources-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .faq-sources-list li {
+            margin-bottom: 8px;
+        }
+
+        .faq-sources-list a {
+            color: #4a90e2;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            word-break: break-all;
+        }
+
+        .faq-sources-list a:hover {
+            color: #5aa0f2;
+            text-decoration: underline;
+        }
+
         .footer-links {
             text-align: center;
             margin-top: 30px;
@@ -575,12 +698,49 @@
             .clear-btn, .copy-btn {
                 width: 25px;
                 height: 25px;
-                font-size: 16px;
+                font-size: 25px;
+                top: 12px;
+                transform: none;
+            }
+
+            .clear-btn:hover, .copy-btn:hover {
+                transform: scale(1.1);
             }
 
             .copy-btn img {
                 width: 16px;
                 height: 16px;
+            }
+
+            .faq-section {
+                margin-top: 30px;
+                padding-top: 20px;
+            }
+
+            .faq-title {
+                font-size: 1.3em;
+                margin-bottom: 15px;
+            }
+
+            .faq-item {
+                margin-bottom: 12px;
+            }
+
+            .faq-question {
+                font-size: 1em;
+                padding: 12px 15px;
+            }
+
+            .faq-answer {
+                padding: 0 15px;
+            }
+
+            .faq-item.active .faq-answer {
+                padding: 0 15px 12px 15px;
+            }
+
+            .faq-answer {
+                font-size: 0.9em;
             }
         }
     </style>
@@ -624,17 +784,6 @@
             Онлайн-конвертер позволяет выполнить автоматическую транслитерацию текстов на якутском языке 
             с кириллического алфавита на латинскую графику. Вы можете конвертировать как текст, 
             который вводите вручную или же вставить скопированный текст.
-        </p>
-
-        <p style="margin-top: 10px;" data-i18n="intro_p2">
-            Преобразование основано на исторических системах латинизации якутского языка — 
-            алфавите <a href="https://ru.wikipedia.org/wiki/Якутская_письменность" target="_blank">
-            С.А. Новгородова</a> (подробности о структуре оригинального алфавита),
-            системе <a href="https://ru.wikipedia.org/wiki/Якутская_письменность" target="_blank">
-            Яналиф</a> (источники правил латиницы 1929–1939),
-            а также на современном стандарте 
-            <a href="https://sah.wikipedia.org/wiki/Кыттааччы:Timiriliev/Якутская_венгерица" target="_blank">«Венгерица»</a> 
-            (описание актуальной латинской системы).
         </p>
 
         <p style="margin-top: 10px;" data-i18n="intro_p3">
@@ -688,6 +837,53 @@
             </div>
         </div>
 
+        <div class="faq-section">
+            <h2 class="faq-title" data-i18n="faq_title">Часто задаваемые вопросы</h2>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span data-i18n="faq_q1">Откуда взят способ транслитерации?</span>
+                    <span class="faq-question-icon">▼</span>
+                </div>
+                <div class="faq-answer" data-i18n="faq_a1">Транслитерация основана на исторических системах латинизации якутского языка: алфавите С.А. Новгородова (1920-е)، системе Яналиф (1929–1939 годов), алфавите Хитрова и современном стандарте «Венгерица». Эти системы были переосмыслены и адаптированы под современные цифровые и визуальные задачи.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span data-i18n="faq_q2">По каким правилам работает транслитерация?</span>
+                    <span class="faq-question-icon">▼</span>
+                </div>
+                <div class="faq-answer" data-i18n="faq_a2">Система основана на соответствии один-к-одному между кириллическими и латинскими символами. Каждый знак преобразуется по заданному набору правил с учётом структуры и особенностей якутского языка. При этом сохраняется читаемость текста, визуальная логика и лингвистическая последовательность.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span data-i18n="faq_q3">О цели создания сайта</span>
+                    <span class="faq-question-icon">▼</span>
+                </div>
+                <div class="faq-answer" data-i18n="faq_a3">Этот сайт создан не для коммерческого использования, а для свободного и открытого доступа. Основная цель проекта — пробудить интерес к истории якутского языка и вдохновить людей на его самостоятельную популяризацию. Особое внимание уделяется молодому поколению саха: проект стремится стать для них источником мотивации к созданию полезных инициатив, а также к сохранению, развитию и современному переосмыслению родного языка и культуры.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span data-i18n="faq_q4">Как можно поддержать проект?</span>
+                    <span class="faq-question-icon">▼</span>
+                </div>
+                <div class="faq-answer" data-i18n="faq_a4">Поддержать проект можно через репосты в социальных сетях, рассказы о нём друзьям и знакомым, а также упоминания в своих творческих и образовательных инициативах. Самая ценная поддержка — это живой интерес, вовлечённость и распространение идеи среди людей.</div>
+            </div>
+
+            <div class="faq-sources">
+                <div class="faq-sources-title" data-i18n="faq_sources_title">Источники:</div>
+                <ul class="faq-sources-list">
+                    <li>
+                        <a href="https://ru.wikipedia.org/wiki/Якутская_письменность" target="_blank" rel="noopener noreferrer" data-i18n="faq_source1">Якутская письменность — Википедия</a>
+                    </li>
+                    <li>
+                        <a href="https://sah.wikipedia.org/wiki/Кыттааччы:Timiriliev/Якутская_венгерица" target="_blank" rel="noopener noreferrer" data-i18n="faq_source2">Якутская венгерица — Википедия (саха)</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
 
         <div class="footer-links">
             <a href="https://www.instagram.com/sakhalatin" target="_blank" rel="noopener noreferrer" title="Contact me on Instagram" data-i18n="contact_title">
@@ -710,7 +906,6 @@
                 'subtitle': 'Якутская Кириллица → Якутская Латиница',
                 'intro_title': 'Конвертер якутского языка с кириллицы на латиницу',
                 'intro_text': 'Онлайн-конвертер позволяет выполнить автоматическую транслитерацию текстов на якутском языке с кириллического алфавита на латинскую графику. Вы можете конвертировать как текст, который вводите вручную или же вставить скопированный текст.',
-                'intro_p2': 'Преобразование основано на исторических системах латинизации якутского языка — алфавите С.А. Новгородова (1920-е), системе Яналиф (латиница 1929–1939 годов), а также на современном стандарте "Венгерица".',
                 'intro_p3': 'Некоторые дифтонги — <b>ыа</b>, <b>иэ</b>, <b>уο</b>, а также буква <b>ө</b> — не могут быть отображены в точном соответствии с нормами, поскольку эти символы не поддерживаются на iOS и Android. Поэтому в конвертере используются адаптированные формы, максимально близкие к оригинальным:',
                 'input_label': 'Введите текст на якутском (кириллица):',
                 'input_placeholder': 'Например: Киэн тутун, эн саха буоларгынан!',
@@ -728,7 +923,19 @@
                 'contact_title': 'Свяжитесь со мной в Instagram',
                 'footer_copyright': '© 2025 SakhaLatin. Все права защищены.',
                 'toast_copied': 'Скопировано в буфер обмена!',
-                'toast_nothing': 'Нечего копировать'
+                'toast_nothing': 'Нечего копировать',
+                'faq_title': 'Часто задаваемые вопросы',
+                'faq_q1': 'О цели создания сайта',
+                'faq_a1': 'Этот сайт создан не для коммерческого использования, а для всеобщего доступа. Моя цель — чтобы люди интересовались историей якутского языка и сами популяризировали его. Я хочу, чтобы молодое поколение саха находило вдохновение создавать полезные проекты, сохранять и развивать наш язык и культуру.',
+                'faq_q2': 'Откуда взят способ транслитерации?',
+                'faq_a2': 'Транслитерация основана на исторических системах латинизации якутского языка: алфавите С.А. Новгородова (1920-е)، системе Яналиф (1929–1939 годов), алфавите Хитрова и современном стандарте «Венгерица». Эти системы были переосмыслены и адаптированы под современные цифровые и визуальные задачи.',
+                'faq_q3': 'По каким правилам работает транслитерация?',
+                'faq_a3': 'Система основана на соответствии один-к-одному между кириллическими и латинскими символами. Каждый знак преобразуется по заданному набору правил с учётом структуры и особенностей якутского языка. При этом сохраняется читаемость текста, визуальная логика и лингвистическая последовательность.',
+                'faq_q4': 'Как можно поддержать проект?',
+                'faq_a4': 'Поддержать проект можно через репосты в социальных сетях, рассказы о нём друзьям и знакомым, а также упоминания в своих творческих и образовательных инициативах. Самая ценная поддержка — это живой интерес, вовлечённость и распространение идеи среди людей.',
+                'faq_sources_title': 'Источники:',
+                'faq_source1': 'Якутская письменность — Википедия',
+                'faq_source2': 'Якутская венгерица — Википедия (саха)'
             },
             'en': {
                 'meta_description': 'SakhaLatin — A tool to transliterate Sakha (Yakut) Cyrillic to Latin, based on the historical Novgorodov alphabet.',
@@ -736,7 +943,6 @@
                 'subtitle': 'Yakut Cyrillic → Yakut Latin',
                 'intro_title': 'Yakut Language Cyrillic to Latin Converter',
                 'intro_text': 'This online converter allows you to automatically transliterate texts in the Yakut language from the Cyrillic alphabet to Latin script. You can convert text that you type manually or paste copied text.',
-'intro_p2': 'The conversion is based on historical systems of Yakut latinization — the alphabet of S.A. Novgorodov (1920s), the Yanálif system (Latin 1929–1939), and the modern "Vengeritsa" standard.',
                 'intro_p3': 'Some diphthongs — <b>ыа</b>, <b>иэ</b>, <b>уο</b>, as well as the letter <b>ө</b> — cannot be displayed in exact accordance with the standards, as these symbols are not supported on iOS and Android. Therefore, the converter uses adapted forms that are as close as possible to the originals:',
                 'input_label': 'Enter text in Yakut (Cyrillic):',
                 'input_placeholder': 'Example: Киэн тутун, эн саха буоларгынан!',
@@ -754,7 +960,19 @@
                 'contact_title': 'Contact me on Instagram',
                 'footer_copyright': '© 2025 SakhaLatin. All rights reserved.',
                 'toast_copied': 'Copied to clipboard!',
-                'toast_nothing': 'Nothing to copy'
+                'toast_nothing': 'Nothing to copy',
+                'faq_title': 'Frequently Asked Questions',
+                'faq_q1': 'About the purpose of creating this site',
+                'faq_a1': 'This website is not intended for commercial use, but rather for free and open access. The project\'s primary goal is to spark interest in the history of the Yakut language and inspire people to promote it independently. Particular attention is paid to the younger generation of Sakha people: the project aims to motivate them to create useful initiatives, as well as to preserve, develop, and reimagine their native language and culture.',
+                'faq_q2': 'Where does the transliteration method come from?',
+                'faq_a2': 'The transliteration is based on historical systems of Yakut latinization: the alphabet of S.A. Novgorodov (1920s), the Yanálif system (1929–1939), Khitrov\'s alphabet, and the modern "Vengeritsa" standard. These systems have been reimagined and adapted for modern digital and visual applications.',
+                'faq_q3': 'What rules does the transliteration follow?',
+                'faq_a3': 'The system is based on a one-to-one correspondence between Cyrillic and Latin characters. Each sign is converted according to a given set of rules, taking into account the structure and features of the Yakut language. At the same time, text readability, visual logic, and linguistic consistency are preserved.',
+                'faq_q4': 'How can I support the project?',
+                'faq_a4': 'You can support the project through reposts on social networks, sharing it with friends and acquaintances, as well as mentioning it in your creative and educational initiatives. The most valuable support is genuine interest, engagement, and spreading the idea among people.',
+                'faq_sources_title': 'Sources:',
+                'faq_source1': 'Yakut writing — Wikipedia',
+                'faq_source2': 'Yakut Vengeritsa — Wikipedia (Sakha)'
             },
             'sah': {
                 'meta_description': 'SakhaLatin — Саха (якут) кириллицатын латыын алпабыытыгар көһөрөр тэрил, С.А. Новгородов историябыт алпабыытыгар олоҕуран.',
@@ -762,7 +980,6 @@
                 'subtitle': 'Саха Кириллицата → Саха Латыына',
                 'intro_title': 'Саха тылын кириллицаттан латыын алпабыытыгар көһөрөөччү',
                 'intro_text': 'Бу онлайн-көһөрөөччү сахалыы тиэкистэри кириллицаттан латыын суругар-бичигэр тута көһөрөргө аналлаах. Бэйэҕит бэчээттиир эбэтэр атын сиртэн киллэрбит тиэкискитин көһөрүөххүтүн сөп.',
-'intro_p2': 'Көһөрүү саха тылын латыыннааһын историябыт тиһиктэригэр олоҕурар — С.А. Новгородов алпабыыта (1920-с сс.), Яналиф тиһигэ (1929–1939 сс. латыын алпабыыта), уонна билиҥҥи "Венгерица" стандарыгар.',
                 'intro_p3': 'Сорох дифтоҥнар — <b>ыа</b>, <b>иэ</b>, <b>уο</b>, уонна <b>ө</b> буукуба — iOS уонна Android-ка өйөммөт буоланнарын, табатык көстүбэттэр. Ол иһин манна кинилэргэ чугас, сөптөөх солбуктар туттуллаллар:',
                 'input_label': 'Сахалыы тиэкиһи киллэр (кириллица):',
                 'input_placeholder': 'Холобур: Киэн тутун, эн саха буоларгынан!',
@@ -780,7 +997,19 @@
                 'contact_title': 'Instagram-ҥа сибээстэс',
                 'footer_copyright': '© 2025 SakhaLatin. Барыта көмүскэллээх.',
                 'toast_copied': 'Буферга куопуйданда!',
-                'toast_nothing': 'Куопуйдуур туох да суох'
+                'toast_nothing': 'Куопуйдуур туох да суох',
+                'faq_title': 'Элбэхтик ыйытыллар ыйытыктар',
+                'faq_q1': 'Ситим-сир айыллыбыт сыалын туһунан',
+                'faq_a1': 'Бу ситим-сир коммерческай туһаҕа аналлана илигин, босхо уонна аһаҕас туһаҕа аналлаах. Тэрил сүрүн сыала — саха тылын историятыгар кыһаллыыны үөскэтии уонна дьону бэйэлэрэ тарҕаталларыгар күүһүрдүү. Эдэр көлүөнэ саха дьонугар аналлаах: тэрил кинилэргэ туһалаах инициативалар оҥорорго, ону тэҥэ төрүт тылбытын уонна култуурабытын харыстыырга, сайыннарарга уонна билиҥҥи кэмҥэ саҥанан толкуйдааһыҥҥа күүһүрдүүнү булунарга аналлаах.',
+                'faq_q2': 'Транслитерация ньымата хантан ылыллыбыт?',
+                'faq_a2': 'Транслитерация саха тылын латыыннааһын историябыт тиһиктэригэр олоҕурар: С.А. Новгородов алпабыыта (1920-с сс.), Яналиф тиһигэ (1929–1939 сс.), Хитров алпабыыта уонна билиҥҥи "Венгерица" стандара. Бу тиһиктэр билиҥҥи цифровой уонна визуальнай задачаларга сөптөөхтүк саҥанан толкуйданан уонна адаптацияланан туһаныллаллар.',
+                'faq_q3': 'Транслитерация ханнык дьаһабыллары тутуһар?',
+                'faq_a3': 'Тиһик кириллица уонна латыын бэлиэлэрин биир-бииргэ сөп түбэһиитигэр олоҕурар. Бэлиэ барыта саха тылын структуратын уонна ойуулуурун ааҕан биэриллэр дьаһабылларга сөп түбэһиннэрэн көһөрүллэр. Ону тэҥэ тиэкис ааҕыллар кыаҕа, визуальнай логика уонна лингвистическай последовательноһа харыстаныллар.',
+                'faq_q4': 'Тэрили хайдах көмүскээххин сөп?',
+                'faq_a4': 'Тэрили социальнай ситимнэргэ репост оҥорон, доҕотторугар уонна билэр дьоҥҥо кэпсээн, ону тэҥэ бэйэҕит творческай уонна үөрэх инициативаларыгар ахтынан көмүскээххин сөп. Ордук кэрэхтээх көмө — бу кыратык кыһаллыы, кыттыы уонна санааны дьон ортотугар тарҕатыы.',
+                'faq_sources_title': 'Источниктар:',
+                'faq_source1': 'Саха суруга — Википедия',
+                'faq_source2': 'Саха венгерицата — Википедия (саха)'
             }
         };
 
@@ -1188,6 +1417,25 @@
                 button.addEventListener('click', () => {
                     const lang = button.getAttribute('data-lang');
                     setLanguage(lang);
+                });
+            });
+
+            // FAQ accordion functionality
+            const faqItems = document.querySelectorAll('.faq-item');
+            faqItems.forEach(item => {
+                const question = item.querySelector('.faq-question');
+                question.addEventListener('click', () => {
+                    const isActive = item.classList.contains('active');
+                    
+                    // Close all FAQ items
+                    faqItems.forEach(faqItem => {
+                        faqItem.classList.remove('active');
+                    });
+                    
+                    // Open clicked item if it wasn't active
+                    if (!isActive) {
+                        item.classList.add('active');
+                    }
                 });
             });
 
