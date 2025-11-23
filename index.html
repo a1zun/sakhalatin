@@ -362,14 +362,9 @@
             margin-top: 15px;
             margin-bottom: 25px;
             padding: 15px 0;
-        }
-
-        .special-chars-label {
-            margin-bottom: 10px;
-            color: var(--text-char-label);
-            font-size: 0.85em;
-            text-align: center;
-            transition: color 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
         }
 
         .special-chars-grid {
@@ -384,16 +379,15 @@
             background: var(--bg-char-btn);
             color: var(--text-primary);
             border: 1px solid var(--border-char-btn);
-            padding: 6px 4px;
+            padding: 8px 4px;
             border-radius: 15px;
             cursor: pointer;
             font-size: 12px;
             font-weight: 500;
             transition: all 0.3s ease;
             display: flex;
-            flex-direction: column;
             align-items: center;
-            gap: 2px;
+            justify-content: center;
         }
 
         .char-btn:hover {
@@ -408,19 +402,8 @@
         }
 
         .char-cyrillic {
-            font-size: 14px;
+            font-size: 18px;
             font-weight: 600;
-        }
-
-        .char-latin {
-            font-size: 10px;
-            color: var(--text-secondary);
-            margin-top: 1px;
-        }
-
-        .arrow {
-            color: var(--text-secondary);
-            font-size: 8px;
         }
 
         .alphabet-select-section {
@@ -581,16 +564,12 @@
             }
 
             .char-btn {
-                padding: 5px 3px;
+                padding: 6px 3px;
                 font-size: 11px;
             }
 
             .char-cyrillic {
-                font-size: 12px;
-            }
-
-            .char-latin {
-                font-size: 9px;
+                font-size: 16px;
             }
 
             .clear-btn, .copy-btn {
@@ -681,9 +660,10 @@
         </div>
 
         <div class="special-chars-section">
-            <p class="special-chars-label" data-i18n="special_chars_label">Специальные символы (нажмите, чтобы вставить):</p>
-            <div class="special-chars-grid" id="special-chars-grid">
-                </div>
+            <div class="special-chars-grid" id="special-chars-grid-uppercase">
+            </div>
+            <div class="special-chars-grid" id="special-chars-grid-lowercase">
+            </div>
         </div>
 
         <div class="alphabet-select-section">
@@ -1088,7 +1068,8 @@
             const themeIcon = document.getElementById('theme-icon');
             const themeText = document.getElementById('theme-text');
             const toast = document.getElementById('toast');
-            const specialCharsGrid = document.getElementById('special-chars-grid');
+            const specialCharsGridUppercase = document.getElementById('special-chars-grid-uppercase');
+            const specialCharsGridLowercase = document.getElementById('special-chars-grid-lowercase');
             const alphabetSelect = document.getElementById('alphabet-select');
             const langButtons = document.querySelectorAll('.lang-btn'); 
 
@@ -1149,18 +1130,42 @@
                 }
             });
 
-            specialCharacters.forEach(char => {
+            // Разделяем символы на заглавные и строчные
+            const uppercaseChars = specialCharacters.filter(char => {
+                const upper = char.cyrillic.toUpperCase();
+                const lower = char.cyrillic.toLowerCase();
+                return char.cyrillic === upper && upper !== lower;
+            });
+            const lowercaseChars = specialCharacters.filter(char => {
+                const upper = char.cyrillic.toUpperCase();
+                const lower = char.cyrillic.toLowerCase();
+                return char.cyrillic === lower && upper !== lower;
+            });
+
+            // Создаем кнопки для заглавных символов
+            uppercaseChars.forEach(char => {
                 const button = document.createElement('button');
                 button.className = 'char-btn';
                 button.innerHTML = `
-                    <span class.char-cyrillic">${char.cyrillic}</span>
-                    <span class="arrow">→</span>
-                    <span class="char-latin">${char.latin}</span>
+                    <span class="char-cyrillic">${char.cyrillic}</span>
                 `;
                 button.addEventListener('click', function() {
                     insertAtCursor(inputTextarea, char.cyrillic);
                 });
-                specialCharsGrid.appendChild(button);
+                specialCharsGridUppercase.appendChild(button);
+            });
+
+            // Создаем кнопки для строчных символов
+            lowercaseChars.forEach(char => {
+                const button = document.createElement('button');
+                button.className = 'char-btn';
+                button.innerHTML = `
+                    <span class="char-cyrillic">${char.cyrillic}</span>
+                `;
+                button.addEventListener('click', function() {
+                    insertAtCursor(inputTextarea, char.cyrillic);
+                });
+                specialCharsGridLowercase.appendChild(button);
             });
 
             function performTransliteration() {
